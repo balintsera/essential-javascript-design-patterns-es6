@@ -41,10 +41,11 @@ class ObserverSubject {
    * @param obj (observerList element)
    * @param startIndex
    */
-  indexOf(obj, startIndex) {
-    for (var i in observerList) {
-      if (observerList[i] === obj) {
-        return i;
+  indexOf(obj, startIndex = 0) {
+    let i = startIndex;
+    for (i in this.observerList) {
+      if (this.observerList[i] === obj) {
+        return +i;
       }
     }
   }
