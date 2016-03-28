@@ -9,8 +9,19 @@ require('babel-register')({
 });
     
 const ObserverSubject = require('../observer/observer-subject.js');
+const Observer = require('../observer/observer.js');
 
 describe('observer pattern, Subject', function() {
+  const _self = this;
+  
+  before(function() {
+    class TestObserver extends Observer {
+      update(event) {
+      }
+    }
+    
+    _self.observer = new TestObserver();
+  });
   
   it('observerSubject is an object', function() {
     const subject = new ObserverSubject();
@@ -18,14 +29,15 @@ describe('observer pattern, Subject', function() {
   });
   
   it('adds a listener to the list', function() {
-    const listener = 'test listener';
+    
+    const listener = _self.observer;
     const subject = new ObserverSubject();
     const result = subject.add(listener);
     expect(typeof result).equals('object');
   });
   
   it('counts the number of the listeners', function() {
-    const listener = 'test listener';
+    const listener = _self.observer;
     const subject = new ObserverSubject();
    
     // Count
@@ -34,16 +46,20 @@ describe('observer pattern, Subject', function() {
   });
   
   it('returns the object at the specified index', function(){ 
-    const listener = 'test listener';
+    const listener = _self.observer;
     const subject = new ObserverSubject();
     const result = subject.add(listener);
     expect(listener).equals(subject.get(0));
   });
   
   it('returns the index of a specified object', function() {
-    const listener = 'test listener';
+    const listener = _self.observer;
     const subject = new ObserverSubject();
-    const listener2 = '2. test listener';
+     class TestObserver2 extends Observer {
+      update(event) {
+      }
+    }
+    const listener2 = new TestObserver2();
     subject
     .add(listener)
     .add(listener2);
@@ -54,7 +70,7 @@ describe('observer pattern, Subject', function() {
   });
   
   it('removes an element at the specified index', function() {
-    const listener = 'test listener';
+    const listener = _self.observer;
     const subject = new ObserverSubject();
     subject
     .add(listener);
@@ -63,5 +79,17 @@ describe('observer pattern, Subject', function() {
     
     subject.removeAt(0);
     expect(subject.count()).equals(0);
+  });
+  
+  it('Notifies observers', function() {
+    const listener = _self.observer;
+    const subject = new ObserverSubject();
+    const listener2 = _self.observer;
+    subject
+    .add(listener)
+    .add(listener2);
+    
+    const event = { type: 'userCreated', payload: { name: 'Bálint' } };
+    subject.notify(event);
   });
 });

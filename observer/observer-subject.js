@@ -1,8 +1,15 @@
 'use strict';
 
+
+
 class ObserverSubject {
-  constructor() {
+  
+  constructor(observerInterface = false) {
     this.observerList = [];
+    if (observerInterface === false) {
+      observerInterface = require('./observer.js');
+    }
+    this.observerInterface = observerInterface;
   }
   
   /**
@@ -10,6 +17,9 @@ class ObserverSubject {
    * @param object observer
    */
   add(observer) {
+    if (!(observer instanceof this.observerInterface)) {
+      throw new Error('Only Observers permitted to add as observer to subject');
+    }
     this.observerList.push(observer);
     
     return this;
@@ -60,6 +70,16 @@ class ObserverSubject {
   removeAt(index) {
     this.checkElementsNumber(index);
     this.observerList.splice(index, 1);
+  }
+  
+  notify(context) {
+    if (this.observerList.length < 1) {
+      throw new Error('No observers');
+    }
+    for (let i in this.observerList) {
+      const observer = this.observerList[i];
+      observer.update(context);
+    }
   }
   
   
