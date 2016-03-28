@@ -40,7 +40,7 @@ describe('observer pattern, Subject', function() {
     expect(listener).equals(subject.get(0));
   });
   
-  it('returns the index of a specified object', function(){ 
+  it('returns the index of a specified object', function() {
     const listener = 'test listener';
     const subject = new ObserverSubject();
     const listener2 = '2. test listener';
@@ -53,5 +53,16 @@ describe('observer pattern, Subject', function() {
     expect(subject.indexOf(listener2, 2)).equals(0);
   });
   
-  
+  it('removes an element at the specified index', function() {
+    const listener = 'test listener';
+    const subject = new ObserverSubject();
+    const listener2 = '2. test listener';
+    subject
+    .add(listener);
+    
+    expect(subject.indexOf(listener)).equals(0);
+    
+    subject.removeAt(0);
+    expect(subject.count()).equals(0);
+  });
 });
