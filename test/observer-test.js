@@ -11,7 +11,7 @@ require('babel-register')({
 const ObserverSubject = require('../observer/observer-subject.js');
 const Observer = require('../observer/observer.js');
 
-describe('observer pattern, Subject', function() {
+describe('Observer pattern - subject', function() {
   const _self = this;
   
   before(function() {
@@ -29,7 +29,6 @@ describe('observer pattern, Subject', function() {
   });
   
   it('adds a listener to the list', function() {
-    
     const listener = _self.observer;
     const subject = new ObserverSubject();
     const result = subject.add(listener);
@@ -81,7 +80,7 @@ describe('observer pattern, Subject', function() {
     expect(subject.count()).equals(0);
   });
   
-  it('Notifies observers', function() {
+  it('notifies observers', function() {
     const listener = _self.observer;
     const subject = new ObserverSubject();
     const listener2 = _self.observer;
