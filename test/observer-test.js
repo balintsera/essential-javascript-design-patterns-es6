@@ -50,13 +50,12 @@ describe('observer pattern, Subject', function() {
     
     expect(subject.indexOf(listener)).equals(0);
     expect(subject.indexOf(listener2)).equals(1);
-    expect(subject.indexOf(listener2, 2)).equals(0);
+    expect(subject.indexOf(listener2, 1)).equals(1);
   });
   
   it('removes an element at the specified index', function() {
     const listener = 'test listener';
     const subject = new ObserverSubject();
-    const listener2 = '2. test listener';
     subject
     .add(listener);
     

@@ -29,9 +29,7 @@ class ObserverSubject {
    * @throws Error
    */
   get(index) {
-    if (index < 0 || index > this.observerList.length - 1) {
-      throw new Error('Too low or too high index');
-    }
+    this.checkElementsNumber(index);
     return this.observerList[index];
   }
   
@@ -42,18 +40,40 @@ class ObserverSubject {
    * @param startIndex
    */
   indexOf(obj, startIndex = 0) {
+    this.checkElementsNumber(startIndex);
     let i = startIndex;
-    for (i in this.observerList) {
+    
+    while (i < this.observerList.length) {
       if (this.observerList[i] === obj) {
         return +i;
       }
+      i++;
     }
   }
   
+  
+  /**
+   * Removes an element at the specified index
+   *
+   * @param index (element's index)
+   */
   removeAt(index) {
-    
+    this.checkElementsNumber(index);
+    this.observerList.splice(index, 1);
   }
   
+  
+  /**
+   * Check wheter a number can be an index
+   *
+   * @param integer index 
+   * @throws {Error}
+   */
+  checkElementsNumber(index) {
+    if (index < 0 || index > this.observerList.length - 1) {
+      throw new Error('Too low or too high index');
+    }
+  }
 }
 
 module.exports = ObserverSubject;
