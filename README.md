@@ -6,6 +6,11 @@ See the original book here: https://addyosmani.com/resources/essentialjsdesignpa
 
 I transpile his ES5 examples to ES6 to acatually learn these beautifull patterns. Maybe it helps you too.
 
+The patterns are located in the subdirectories, for example the observer pattern in the `observer`. 
+
+The unit tests are written with mocha, run them with `node_modules/mocha/bin/mocha`. Usage examples of the patterns are also can be found there in the /test dir.
+
+ 
 
 
 
