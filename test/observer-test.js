@@ -8,8 +8,8 @@ require('babel-register')({
     ],
 });
     
-const ObserverSubject = require('../observer/observer-subject.js');
-const Observer = require('../observer/observer.js');
+const ObserverSubject = require('../patterns/observer/observer-subject.js');
+const Observer = require('../patterns/observer/observer.js');
 
 describe('Observer pattern - subject', function() {
   const _self = this;

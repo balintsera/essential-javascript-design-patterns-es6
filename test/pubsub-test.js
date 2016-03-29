@@ -8,7 +8,7 @@ require('babel-register')({
     ],
 });
 
-const PubSub = require('../pubsub/pubsub');
+const PubSub = require('../patterns/pubsub/pubsub');
 
 describe('Pubsub pattern - pubsub', function() {
   it('pubSub is an object', function() {
