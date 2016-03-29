@@ -25,8 +25,20 @@ describe('Pubsub pattern - pubsub', function() {
   it('subscribes to a topic', function() {
     const pubSub = new PubSub();
     pubSub.subscribe('user/mail', function(topics, payload) {
-      console.log('user/mail event happened');
+      console.log('user/mail event happened', topics, payload);
     });
     expect(pubSub.getSubscribersForTopic('user/mail').length).equals(1);
+  });
+  
+  it('publishes a topics all subscriber', function() {
+    const pubSub = new PubSub();
+    pubSub.subscribe('user/mail', function(topics, payload) {
+      //console.log('user/mail event happened', topics, payload);
+    });
+    expect(pubSub.getSubscribersForTopic('user/mail').length).equals(1);
+    
+    expect(pubSub.publish.bind(pubSub, 'nonexisting')).to.throw('No subscriber exists for topic:nonexisting');
+    
+    expect(pubSub.publish.bind(pubSub, 'user/mail')).to.not.throw('No subscriber exists for topic:user/mail');    
   });
 });

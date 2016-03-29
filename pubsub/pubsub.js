@@ -36,6 +36,20 @@ class PubSub
   
   
   /**
+   * Publish: run every subscribers callback function with args
+   *
+   * @param topic 
+   * @param payload 
+   * @returns 
+   */
+  publish(topic, payload) {
+    if (!this.subscribers[topic]) {
+      throw new Error('No subscriber exists for topic:' + topic);
+    }
+    
+    this.subscribers[topic].map(subscriber => subscriber.callback(topic, payload));
+  }
+  /**
    * Add a new topic to the subscribers array
    *
    * @param topic (description)
