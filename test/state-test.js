@@ -52,11 +52,21 @@ describe('State pattern', function() {
     expect(state.currentState.constructor.name).equals('OverDrawnState');
   });
 
+  it('Removing amount from over drawn state to on hold state', function() {
+    const state = new State();
+    state.withdraw(100);
+    expect(state.currentState.constructor.name).equals('OverDrawnState');
+    expect(state.withdraw.bind(state, 100)).to.throw('Cannot withraw money from an already overdrawn bank account');
+    expect(state.currentState.constructor.name).equals('OnHoldState');
+  });
+
   it('State has deposit method', function() {
     const state = new State();
     expect(typeof state.deposit).equals('function');
     state.deposit(10);
     expect(state.balance).equals(10); 
+    state.deposit(10);
+    expect(state.balance).equals(20);
   });
 
 });
